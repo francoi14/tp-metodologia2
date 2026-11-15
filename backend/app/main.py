@@ -1,25 +1,27 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 from app.database import get_db_connection
 from app.routers import auth, productos, ventas, usuarios, clientes
 
 app = FastAPI(title="Tienda Gamer API", version="1.0.0")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-app.mount("/static", StaticFiles(directory="../frontend"), name="static")
-
-# Registrar routers de la API
 app.include_router(auth.router)
 app.include_router(productos.router)
 app.include_router(ventas.router)
-app.include_router(usuarios.router) 
+app.include_router(usuarios.router)
 app.include_router(clientes.router)
 
-# Ruta raiz, index.html
 @app.get("/")
 def read_root():
-    return FileResponse("../frontend/index.html")
+    return {"status": "online", "message": "API Tienda Gamer LR funcionando"}
 
 @app.get("/test-db")
 async def test_db():

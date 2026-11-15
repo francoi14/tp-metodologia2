@@ -1,4 +1,8 @@
-/* estilos generales y dashboard (index.html) */
+* {
+    box-sizing: border-box;
+}
+
+/* estilos generales y dashboard */
 body {
     background-color: #038554;
     color: #000000;
@@ -9,20 +13,30 @@ body {
     margin: 0;
 }
 
-/* login */
-#auth-container {
-    max-width: 420px;
+#root {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
-/* tarjeta del login */
-#auth-container .login-card {
-    display: block !important;
-    padding: 40px 30px;
+/* login */
+.tg-auth-wrapper {
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
 }
 
 .login-card {
     display: block;
+    width: 100%;
+    max-width: 420px;
     padding: 40px 30px;
+    margin: 0 auto;
 }
 
 .login-title {
@@ -75,8 +89,8 @@ body {
 
 /* contenedores para centrar todo */
 #app-container {
-    display: none;
     flex: 1;
+    display: flex;
     flex-direction: column;
     padding: 20px;
 }
@@ -90,10 +104,12 @@ body {
     width: 100%;
     padding-top: 2vh;
     padding-bottom: 2vh;
+    margin-bottom: 20px;
 }
 
 #dashboard-wrapper {
     flex: 1;
+    min-height: calc(100vh - 140px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,6 +129,7 @@ body {
     text-transform: uppercase;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     font-size: 0.9rem;
+    cursor: pointer;
 }
 
 .btn-logout:hover {
@@ -123,7 +140,6 @@ body {
 
 /* vistas internas */
 .seccion-vista {
-    display: none;
     background-color: #ffffff;
     border-radius: 24px;
     padding: 40px;
@@ -148,30 +164,147 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* tablas y formularios */
-.table {
-    color: #000000;
-    margin-top: 1rem;
+/* grillas y estructura nativa */
+.tg-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
 }
 
-.table thead th {
+.tg-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+.tg-two-cols {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.tg-sales-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+@media (max-width: 960px) {
+    .tg-dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .tg-two-cols,
+    .tg-sales-grid {
+        grid-template-columns: 1fr;
+    }
+    .top-header {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .btn-logout {
+        position: static;
+    }
+}
+
+@media (max-width: 560px) {
+    .tg-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tg-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.tg-actions-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* tablas y formularios */
+.tg-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tg-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #000000;
+    margin-top: 0.5rem;
+}
+
+.tg-table thead th {
     border-bottom: 3px solid #000000;
     font-weight: 800;
     text-transform: uppercase;
     font-size: 0.85rem;
+    padding: 12px 10px;
+    text-align: left;
 }
 
-.form-control, .form-select {
+.tg-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.tg-form-group {
+    margin-bottom: 14px;
+}
+
+.tg-label {
+    display: block;
+    font-weight: 800;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    color: #000000;
+}
+
+.tg-input,
+.tg-select {
+    width: 100%;
     border: 2px solid #e0e0e0;
     border-radius: 12px;
     color: #000000;
     padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: #ffffff;
     transition: all 0.3s;
 }
 
-.form-control:focus, .form-select:focus {
+.tg-input:focus,
+.tg-select:focus {
+    outline: none;
     border-color: #000000;
     box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.tg-w-100 {
+    width: 100%;
+}
+
+.tg-py-lg {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* botones */
+.btn {
+    font-family: inherit;
+    cursor: pointer;
 }
 
 .btn-custom {
@@ -182,13 +315,19 @@ body {
     font-weight: 800;
     padding: 0.75rem 1.5rem;
     transition: all 0.3s;
+    text-transform: uppercase;
 }
 
-.btn-custom:hover {
+.btn-custom:hover:not(:disabled) {
     background-color: #333333;
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
 }
 
 .btn-back {
@@ -197,7 +336,9 @@ body {
     border: 2px solid #000000;
     border-radius: 12px;
     font-weight: 800;
+    padding: 0.5rem 1.5rem;
     transition: all 0.3s;
+    text-transform: uppercase;
 }
 
 .btn-back:hover {
@@ -205,12 +346,61 @@ body {
     color: #ffffff;
 }
 
-h5.fw-bold {
-    color: #000000;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    margin-bottom: 1.5rem;
+.tg-btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.tg-btn-edit {
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+    margin-right: 6px;
+}
+
+.tg-btn-edit:hover {
+    background: #0d6efd;
+    color: #ffffff;
+}
+
+.tg-btn-del {
+    border: 2px solid #dc3545;
+    color: #dc3545;
+}
+
+.tg-btn-del:hover {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.tg-btn-pdf {
+    border: 2px solid #038554;
+    color: #038554;
+}
+
+.tg-btn-pdf:hover {
+    background: #038554;
+    color: #ffffff;
+}
+
+.tg-btn-csv {
+    background-color: #038554;
+    color: #ffffff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tg-btn-csv:hover {
+    background-color: #026841;
 }
 
 /* detalles de ventas, productos y carrito */
@@ -222,32 +412,103 @@ h5.fw-bold {
     font-size: 0.9rem;
 }
 
-#detalle-cliente-venta {
+.tg-client-box {
     background-color: #f8f9fa;
-    border-color: #e0e0e0 !important;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px;
     font-size: 0.9rem;
+    line-height: 1.6;
 }
 
-#lista-carrito {
+.tg-cart-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tg-cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
     border-radius: 12px;
     border: 2px solid #e0e0e0;
     overflow: hidden;
+    flex-grow: 1;
 }
 
-#btn-facturar {
-    font-size: 1.1rem;
+.tg-cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #ffffff;
+}
+
+.tg-cart-item:last-child {
+    border-bottom: none;
+}
+
+.tg-msg-error {
+    color: #dc3545;
+    font-weight: 800;
+    font-size: 0.88rem;
+    margin-top: 10px;
+}
+
+.tg-msg-ok {
+    color: #038554;
+    font-weight: 800;
+    font-size: 0.92rem;
+    margin-top: 12px;
 }
 
 /* modales */
-.modal-custom {
+.tg-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.tg-modal-box {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 460px;
     border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
 }
 
-.modal-header-custom {
+.tg-modal-header {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 18px 24px;
     border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* estilos del comprobante (factura.html) */
+.tg-modal-close {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.tg-modal-body {
+    padding: 24px;
+}
+
+/* estilos del comprobante (factura PDF) */
 body.factura-body {
     display: block;
     min-height: auto;
@@ -370,7 +631,6 @@ body.factura-body {
     margin-right: auto;
 }
 
-/* ocultar boton al imprimir */
 @media print {
     .factura-body .print-btn {
         display: none;
